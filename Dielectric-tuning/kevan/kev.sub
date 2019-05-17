@@ -1,0 +1,20 @@
+#!/bin/bash
+#PBS -P fr18
+#PBS -q normal
+#PBS -l walltime=48:00:00,mem=4GB
+#PBS -l wd
+#PBS -l jobfs=8GB
+#PBS -l ncpus=4
+	
+export QC=/short/fr18/qchem
+export QCAUX=/apps/qchem/aux
+export QCSCRATCH=$PBS_JOBFS
+
+$QC/bin/qchem.setup.sh
+
+export PATH=$PATH:$QC/bin:$QC/bin/perl:$QC/bin/mpi:$QC/exe:$QC/util
+
+module load python/2.7.3
+module load python/2.7.3-matplotlib
+
+python kev-ion.py
